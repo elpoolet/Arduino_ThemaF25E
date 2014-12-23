@@ -49,7 +49,7 @@ void setup()
 
 void loop()
 {
-  sendNTPpacket(timeServer); // send an NTP packet to a time server
+  //sendNTPpacket(timeServer); // send an NTP packet to a time server
 
     // wait to see if a reply is available
   delay(1000);  

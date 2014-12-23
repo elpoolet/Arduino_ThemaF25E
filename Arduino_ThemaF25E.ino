@@ -1,11 +1,12 @@
 /*
- MeteoWebServer
+ Thema F25E
  
- Web Serveur qui donne les conditions metéo dans notre maison.
+ Gestion des mises en route d'une chaudière Saunier Duval Thema F25E
+ 
+ La mise en route se fait par commutation d'un relais
  
  Circuit:
  * Ethernet shield attached to pins 10, 11, 12, 13
- * BMP085 en I²C sur les pins A4 et A5
  * LM35 sur la pin A3
  
 
@@ -14,15 +15,13 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <EthernetUdp.h>
-#include "bmp085_functions.h"
 #include "ntpclient.h"
-#include <Wire.h>
 
 
 // Enter a MAC address and IP address for your controller below.
 // The IP address will be dependent on your local network:
-byte mac[] = { 
-  0x00, 0x08, 0xDC, 0x91, 0x15, 0x05 };
+//byte mac[] = { 
+//  0x00, 0x08, 0xDC, 0x91, 0x15, 0x05 };
 IPAddress dnServer(192, 168, 1, 254);
 IPAddress gateway(192, 168, 1, 254);
 IPAddress subnet(255, 255, 255, 0);
@@ -49,8 +48,6 @@ void setup() {
   bmp085Init();
   Serial.print("server is at ");
   Serial.println(Ethernet.localIP());
-  
-  EthernetUdp udp;
   
   unsigned long unixTime = webUnixTime(udp);
   
