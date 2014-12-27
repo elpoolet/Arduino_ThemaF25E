@@ -66,6 +66,7 @@ EthernetUDP udp;
 // Variables pour la gestion des temperatures
 LM35 tempsensor;
 
+int pin_relay = 2;
 
 unsigned long lastgetutcmillis = 0 ;
 unsigned long curmillis = 0;
@@ -120,6 +121,8 @@ void setup() {
   Serial.println("s. ");
   
   curmillis = millis();
+  
+  pinMode(pin_relay,OUTPUT);
   
 }
 
@@ -186,10 +189,10 @@ void loop() {
   chauffer = doit_on_chauffer(temp) ;
   if (chauffer == true) {
     Serial.println("Allumage de la chaudiere");
-    // chaudiere_allume();
+    chaudiere_allume();
   } else {
-    Serial.print("Extinction de la chaudiere");
-    // chaudiere_eteint();
+    Serial.println("Extinction de la chaudiere");
+    chaudiere_eteint();
   }
   
   
@@ -206,8 +209,13 @@ void loop() {
 }
 
 
+void chaudiere_allume() {
+  digitalWrite(pin_relay,HIGH);
+}
 
-
+void chaudiere_eteint() {
+  digitalWrite(pin_relay,LOW);
+}
 
 
 
